@@ -14,25 +14,13 @@ export default function LeaderboardEntry({ position, info }: {
     }
     return (
         <View style={styles.entryContainer}>
-            <Text style={{ textAlign: "center", fontSize: 16 }}>{ position }</Text>
+            <Text style={{ textAlign: "center", fontSize: 16 }}>{ position + 1 }</Text>
             <Ionicons name="ios-person" size={28} color="grey" />
             <Text style={{ fontSize: 16 }}>{formatName()}</Text>
             <Text style={{ fontSize: 16 }}>$ {info.moneySaved}</Text>
         </View>
     );
 }
-
-const shadowStyle = {
-    width: 100,
-    height: 100,
-    color: "#000",
-    border: 2,
-    radius: 3,
-    opacity: 0.2,
-    x: 0,
-    y: 3,
-    style: { marginVertical: 5 },
-};
 
 const styles = StyleSheet.create({
     entryContainer: {
@@ -41,11 +29,17 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
         width: "80%",
-        borderWidth: 1,
-        borderColor: "red",
+        borderWidth: 0,
         borderRadius: 15,
         marginBottom: 15,
-        shadowOffset: shadowStyle,
+        shadowColor: "#000000",
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity:  0.21,
+        shadowRadius: 6.65,
+        elevation: 9,
         padding: 15,
     },
 });
