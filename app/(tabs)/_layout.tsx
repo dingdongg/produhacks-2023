@@ -3,6 +3,8 @@ import { Link, Tabs } from 'expo-router';
 import { Pressable, StyleSheet, useColorScheme } from 'react-native';
 import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { View } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
 import Colors from '../../constants/Colors';
 
@@ -36,50 +38,53 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors['dark'].tint,
+        headerTintColor: "#000",
+        tabBarBackground: () => <View style={{ backgroundColor: "#fff", height: "100%", width: "100%" }}/>,
+        headerBackground: () => <View style={{ backgroundColor: "#fff", height: "100%", width: "100%" }}/>,
+        headerRight: () => (
+          <Link href="/profile" asChild>
+            <Pressable>
+              {({ pressed }) => (
+                <Ionicons 
+                  name="ios-person" 
+                  size={25} 
+                  color="grey" 
+                  style={{ marginRight: 15 }} 
+                />
+              )}
+            </Pressable>
+          </Link>
+        )
       }}>
       <Tabs.Screen
-        name="index"
+        name="dashboard"
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="view-dashboard-outline" size={28} color={color} />,
-          headerLeft: () => {
+          headerLeft: ({ tintColor }) => {
             return (
               <MaterialCommunityIcons 
                 name="view-dashboard-outline" 
                 size={28} 
-                color="white" 
+                color={tintColor} 
                 style={{ marginLeft: 15 }}
               />
             );
           },
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="community"
         options={{
           title: 'Community',
           tabBarIcon: ({ color }) => <Octicons name="people" size={28} color={color} />,
-          headerLeft: () => {
+          headerLeft: ({ tintColor }) => {
             return (
               <Octicons 
                 name="people" 
                 size={28} 
-                color="white" 
+                color={tintColor}
                 style={{ marginLeft: 15 }}
               />
             );
@@ -90,7 +95,15 @@ export default function TabLayout() {
         name="shake"
         options={{
           title: "",
-          tabBarIcon: () => <ShakeIcon />,
+          tabBarIcon: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <ShakeIcon />
+                )}
+              </Pressable>
+            </Link>
+          ),
           headerLeft: () => {
             return (
               <ShakeIcon 
@@ -105,12 +118,12 @@ export default function TabLayout() {
         options={{
           title: "Goals",
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="checkbox-marked-circle-plus-outline" size={28} color={color} />,
-          headerLeft: () => {
+          headerLeft: ({ tintColor }) => {
             return (
               <MaterialCommunityIcons 
                 name="checkbox-marked-circle-plus-outline" 
                 size={28} 
-                color="white" 
+                color={tintColor}
                 style={{ marginLeft: 15 }}
               />
             );
@@ -122,12 +135,12 @@ export default function TabLayout() {
         options={{
           title: "Progress",
           tabBarIcon: ({ color }) => <Octicons name="graph" size={28} color={color} />,
-          headerLeft: () => {
+          headerLeft: ({ tintColor }) => {
             return (
               <Octicons 
                 name="graph" 
                 size={28} 
-                color="white" 
+                color={tintColor}
                 style={{ marginLeft: 15 }}
               />
             );
@@ -142,5 +155,8 @@ const styles = StyleSheet.create({
   shakeIconGradientContainer: {
     borderRadius: 50,
     padding: 5,
+  },
+  background: {
+    backgroundColor: "#fff",
   },
 });
