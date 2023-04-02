@@ -1,30 +1,31 @@
-import { View, Text } from "../components/Themed";
+// import { View, Text } from "../components/Themed";
+import { View, Text } from "react-native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 
-export default function MetricCard({ metric }: { metric: string }) {
+export default function MetricCard({ metric, value }: { metric: string, value: number }) {
     return (
         <View style={styles.metricCardContainer}>
             <View>
-                <MaskedView maskElement={<Text>{metric}</Text>}>
-                    <LinearGradient
-                        colors={['cadetblue', '#fabada']}
-                        start={{ x: 1, y: 1 }}
-                        end={{ x: 0, y: 0.33 }}
-                        style={{ flex: 1 }}
-                    />
-                </MaskedView>
+                <Text style={{ fontSize: 16, color: "orange" }}>{ value }</Text>
             </View>
-            <Text>{ metric }</Text>
+            <Text style={{ fontSize: 16, color: "red" }} onPress={() => alert("pressed")}>{ metric }</Text>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     metricCardContainer: {
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        borderColor: "blue",
+        borderWidth: 2,
+        width: "45%",
+        height: "50%",
+        margin: 5,
+        borderRadius: 15,
     },
 });
