@@ -62,9 +62,8 @@ export default function ModalScreen() {
     const dataSum = calculateSum(data);
     console.log(dataSum);
     setAccelSum(dataSum);
-    if (dataSum > 10) {
+    if (dataSum > 7) {
       setShooken(true);
-      // setTimeout(() => setShooken(false), 2000);
       router.replace("/goals");
       _unsubscribe();
     }
