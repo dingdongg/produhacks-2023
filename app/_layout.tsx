@@ -4,8 +4,11 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
-import firebase from "../firebaseConfig";
-import SignUp from './SignUp';
+import Login from './Login';
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
+import Constants from 'expo-constants';
+import * as SecureStore from "expo-secure-store";
+import { TokenCache } from '@clerk/clerk-expo/dist/cache';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -15,6 +18,15 @@ export {
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(tabs)',
+};
+
+const tokenCache: TokenCache = {
+  getToken(key: string) {
+    return SecureStore.getItemAsync(key);
+  },
+  saveToken(key: string, value: string) {
+    return SecureStore.setItemAsync(key, value);
+  },
 };
 
 export default function RootLayout() {
@@ -40,21 +52,23 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  const authState = firebase.auth;
-  console.log(authState.currentUser);
 
-  if (!authState.currentUser) {
-    return <SignUp />
-  } else {
-    return (
-      <>
+  return (
+    <ClerkProvider 
+      publishableKey={Constants.manifest?.extra?.clerkPublishableKey}
+      tokenCache={tokenCache}
+    >
+      <SignedIn>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
           </Stack>
         </ThemeProvider>
-      </>
-    );
-  }
+      </SignedIn>
+      <SignedOut>
+        <Login />
+      </SignedOut>
+    </ClerkProvider>
+  );
 }
