@@ -56,9 +56,6 @@ export default function TabOneScreen() {
           ))
         }
       </View>
-      <Pressable onPress={() => signOut()}>
-        <Text style={{ color: "black" }}>SIGN OUT</Text>
-      </Pressable>
     </View>
   );
 }
