@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { Accelerometer, AccelerometerMeasurement } from 'expo-sensors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 function ShakeIcon({ style }: { style?: Object }) {
   return (
@@ -20,6 +21,8 @@ function ShakeIcon({ style }: { style?: Object }) {
 }
 
 export default function ModalScreen() {
+
+  const router = useRouter();
   
   const [data, setData] = useState<AccelerometerMeasurement>({
     x: 0,
@@ -62,6 +65,7 @@ export default function ModalScreen() {
     if (dataSum > 10) {
       setShooken(true);
       // setTimeout(() => setShooken(false), 2000);
+      router.replace("/goals");
       _unsubscribe();
     }
   }, [data]);
