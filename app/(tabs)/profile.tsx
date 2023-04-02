@@ -8,7 +8,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Profile() {
     const { signOut } = useClerk();
-
     return (
         <View style={styles.profileContainer}>
             <LinearGradient
