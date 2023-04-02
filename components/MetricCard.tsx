@@ -5,7 +5,7 @@ export default function MetricCard({ metric, value }: { metric: string, value: n
     return (
         <View style={styles.metricCardContainer}>
             <View>
-                <Text style={{ color: "green", fontSize: 32 }}>{ value }</Text>
+                <Text style={{ color: "#9999FF", fontSize: 48 }}>{ value }</Text>
             </View>
             <Text style={{ fontSize: 16, color: "black" }} onPress={() => alert("pressed")}>{ metric }</Text>
         </View>
