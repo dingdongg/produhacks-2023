@@ -5,19 +5,14 @@ import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { BottomTabBar } from '@react-navigation/bottom-tabs';
 
 import Colors from '../../constants/Colors';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
 function ShakeIcon({ style }: { style?: Object }) {
   const existingStyle: Object[] = [styles.shakeIconGradientContainer];
   if (style) existingStyle.push(style);
@@ -27,17 +22,18 @@ function ShakeIcon({ style }: { style?: Object }) {
       colors={['#92C5EB', '#FFBBE8']}
       style={existingStyle}
     >
-      <MaterialCommunityIcons size={36} color="white" name="vibrate" />
+      <MaterialCommunityIcons size={50} color="white" name="vibrate" />
     </LinearGradient>
   )
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
+        tabBarStyle: {
+          height: 100,
+        },
         tabBarActiveTintColor: Colors['dark'].tint,
         headerTintColor: "#000",
         tabBarBackground: () => <View style={{ backgroundColor: "#fff", height: "100%", width: "100%" }}/>,
@@ -45,20 +41,21 @@ export default function TabLayout() {
         headerRight: () => (
           <Link href="/profile" asChild>
             <Pressable>
-              {({ pressed }) => (
-                <Ionicons 
+              {() => {
+                return <Ionicons 
                   name="ios-person" 
                   size={25} 
                   color="grey" 
                   style={{ marginRight: 15 }} 
                 />
-              )}
+              }}
             </Pressable>
           </Link>
-        )
-      }}>
+        ),
+      }}
+      >
       <Tabs.Screen
-        name="dashboard"
+        name="index"
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="view-dashboard-outline" size={28} color={color} />,
@@ -95,11 +92,11 @@ export default function TabLayout() {
         name="shake"
         options={{
           title: "",
-          tabBarIcon: () => (
+          tabBarButton: () => (
             <Link href="/modal" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <ShakeIcon />
+                  <ShakeIcon style={{ marginTop: 5 }}/>
                 )}
               </Pressable>
             </Link>
@@ -146,6 +143,14 @@ export default function TabLayout() {
             );
           },
         }}
+      />
+      <Tabs.Screen 
+        name="profile" 
+        options={{ 
+          tabBarItemStyle: { 
+            display: 'none', 
+          }, 
+        }} 
       />
     </Tabs>
   );
