@@ -1,31 +1,21 @@
-import { StyleSheet, Pressable } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
-import { useClerk } from "@clerk/clerk-react";
-import MetricCard from '../../components/MetricCard';
 
-export default function TabOneScreen() {
-
-  const { signOut } = useClerk();
-
+export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <MetricCard metric="blah blah"></MetricCard>
-      {/* <Text style={styles.title}>Tab One</Text>
+      <Text style={styles.title}>Progress</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
-      <Pressable onPress={() => signOut()}>
-        <Text>SIGN OUT</Text>
-      </Pressable>
+      <EditScreenInfo path="app/(tabs)/progress.tsx" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    display: "flex",
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
