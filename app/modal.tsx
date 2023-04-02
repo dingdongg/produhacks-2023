@@ -70,18 +70,15 @@ export default function ModalScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>--</Text>
       <View style={styles.separator} lightColor="#fff" />
-          <Text style={{ color: "black" }}>Accelerometer:</Text>
-          {(data)
-              ? <Text style={{ color: "black" }}>x: {Math.round(data.x)} y: {Math.round(data.y)} z: {Math.round(data.z)}</Text>
-              : <Text style={{ color: "black" }}>unavailable</Text>
-          }
-          <ShakeIcon style={styles.shakeIcon} />
           {
             (shooken) 
               ? <Text style={{ color: "black", fontSize: 50 }}>SHOOKEN!!!!!! VALUE = {accelSum}</Text>
-              : <Text style={{ color: "black" }}>shake it</Text>
+              : <Text style={{ maxWidth: "80%", color: "black", fontSize: 24, marginBottom: 200, marginTop: -123, fontWeight: "bold", textAlign: 'center' }}>
+                  Before you light up...{"\n"}
+                  Shake it off and choose a better path.
+                </Text>
           }
-
+          <ShakeIcon style={styles.shakeIcon} />
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
